@@ -1,0 +1,56 @@
+﻿@model ASP1.Models.Shop.ShopCategoryPageModel
+@{
+    Layout="_ShopLayout";
+     bool isAuthenticated=Context.User.Identity?.IsAuthenticated??false; 
+
+}
+<h1>Category Page for @Model.Slug</h1>
+
+@* //Блок админки *@
+@if (isAuthenticated)
+{
+    <div class="row justify-content-end">
+        <div class="col col-5">
+            <h2>Додавання товару</h2>
+            <form id="product-form" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="product-name"><i class="bi bi-person-fill"></i></span>
+                                <input type="text" class="form-control" placeholder="Назва" 
+                                     name="product-name" aria-label="Category-name" aria-describedby="product-name">
+                        </div>
+                    </div>
+                <div class="col">
+                     <div class="input-group mb-3">
+                         <span class="input-group-text" id="product-price"><i class="bi bi-person-fill"></i></span>
+                         <input type="text" class="form-control" placeholder="Ціна"
+                            name="product-price" aria-label="Category-price" aria-describedby="Category-price">
+                     </div>
+                 </div>
+                </div>
+
+               <div class="row mb-3">
+                     <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-info"></i></span>
+                     <textarea class="form-control" name="product-description" 
+                            placeholder="Опис категорії"></textarea>
+                    </div>
+                </div>
+               <div class="row mb-3">
+                 <div class="col col-8">
+                        <div class="input-group mb-3">
+                         <label class = "input-group-text" for="product-image"><i class="bi bi-card-image"></i></label>
+                         <input type="file" class="form-control" name="product-image" id="product-image"/>
+                         
+                        </div>
+                 </div>
+                 <div class="col col-4">
+                         <button type="submit" class="btn btn-primary">Додати</button>
+                 </div>
+                </div>
+                <input type="hidden" name="category-id" value="@Model.Category.Id"/>
+            </form>
+        </div>
+    </div>
+}
